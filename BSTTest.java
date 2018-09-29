@@ -8,6 +8,19 @@ import org.junit.runners.JUnit4;
 public class BSTTest
 {
 
+	//Finds the lowest common ancestor of two nodes in a binary search tree
+	@Test
+	public void testLCA()
+	{
+		BST<Integer, Integer> bst = new BST<Integer, Integer>();
+		bst.put(7, 7);
+		bst.put(8, 8);
+		bst.put(6, 6);
+		//assertEquals(bst.findLCA(6,8),7);
+		
+		
+	}
+	
 	@Test
 	public void testIsEmpty()
 	{
