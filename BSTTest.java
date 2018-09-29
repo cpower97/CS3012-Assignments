@@ -13,12 +13,35 @@ public class BSTTest
 	public void testLCA()
 	{
 		BST<Integer, Integer> bst = new BST<Integer, Integer>();
+		//Tests findLCA for empty bst
+		assertNull(bst.findLCA(1, 2));
+		
 		bst.put(7, 7);
 		bst.put(8, 8);
 		bst.put(6, 6);
-		//assertEquals(bst.findLCA(6,8),7);
+		//Tests findLCA for bst with three nodes
+		assertEquals(bst.get(7), bst.findLCA(6, 8));
 		
+		BST<Integer, Integer> bst2 = new BST<Integer, Integer>();
+		bst2.put(7, 7);
+		bst2.put(6, 6);
+		bst2.put(5, 5);
+		bst2.put(4, 4);
+		bst2.put(3, 3);
 		
+		assertEquals(bst2.get(4), bst2.findLCA(3, 4));
+		
+		BST<Integer, Integer> bst3 = new BST<Integer, Integer>();
+		bst3.put(7, 7);
+		bst3.put(10,10);
+		bst3.put(6, 6);
+		bst3.put(7, 7);
+		bst3.put(5, 5);
+		bst3.put(4, 4);
+		bst3.put(3, 3);
+		
+		assertEquals(bst.get(7), bst.findLCA(6, 10));
+			
 	}
 	
 	@Test
