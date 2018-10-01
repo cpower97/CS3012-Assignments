@@ -1,8 +1,11 @@
 import java.util.NoSuchElementException;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
-
-
+/* This implementation of the lowest common ancestor problem is based on code I had written 
+ * for a module last year in which I built a binary search tree API with basic functions
+ * implemented, such as get and put. For this assignment I then added a function to find the 
+ * lowest common ancestor of two nodes.
+ */
 public class BST<Key extends Comparable<Key>, Value> {
     private Node root;             // root of BST
 
@@ -22,12 +25,16 @@ public class BST<Key extends Comparable<Key>, Value> {
         }
     }
 
-    public Key findLCA(Key k1, Key k2)
+    public Value findLCA(Key k1, Key k2)
     {
+    	if(root == null) return null;
+    	
+    	if(!this.contains(k1) || !this.contains(k2)) return null;
+    	
     	return findLCA(root, k1, k2);
     }
     
-    private Key findLCA(Node node, Key k1, Key k2)
+    private Value findLCA(Node node, Key k1, Key k2)
     {
     	if(node == null) return null;
     	
@@ -37,7 +44,7 @@ public class BST<Key extends Comparable<Key>, Value> {
     	if(node.key.compareTo(k1) < 0 && node.key.compareTo(k2) < 0)
     		return findLCA(node.right, k1, k2);
     	
-    	return node.key;
+    	return node.val;
     }
     // is the symbol table empty?
     public boolean isEmpty() { return size() == 0; }
