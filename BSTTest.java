@@ -8,19 +8,31 @@ import org.junit.runners.JUnit4;
 public class BSTTest
 {
 
+	//Tests binary search tree constructor
+	@Test
+	public void testBSTConstructor()
+	{
+		//Test construction of bst
+		BST<Integer, Integer> bst = new BST<Integer, Integer>();
+		assertTrue(bst.isEmpty());
+		assertEquals("An empty tree should have size 0.",0,bst.size());
+		
+	}
+	
 	//Finds the lowest common ancestor of two nodes in a binary search tree
 	@Test
 	public void testLCA()
 	{
 		BST<Integer, Integer> bst = new BST<Integer, Integer>();
-		//Tests findLCA for empty bst
+		//Tests findLCA for empty binary tree
 		assertNull(bst.findLCA(1, 2));
 		
 		bst.put(7, 7);
 		bst.put(8, 8);
 		bst.put(6, 6);
-		//Tests findLCA for bst with three nodes
-		assertEquals(bst.get(7), bst.findLCA(6, 8));
+		
+		//Tests findLCA for non-empty binary trees
+		assertEquals("The lca of these nodes should be 7.",bst.get(7), bst.findLCA(6, 8));
 		
 		BST<Integer, Integer> bst2 = new BST<Integer, Integer>();
 		bst2.put(7, 7);
@@ -29,18 +41,17 @@ public class BSTTest
 		bst2.put(4, 4);
 		bst2.put(3, 3);
 		
-		assertEquals(bst2.get(4), bst2.findLCA(3, 4));
+		assertEquals("The lca of these nodes should be 4.",bst2.get(4), bst2.findLCA(3, 4));
 		
 		BST<Integer, Integer> bst3 = new BST<Integer, Integer>();
 		bst3.put(7, 7);
 		bst3.put(10,10);
 		bst3.put(6, 6);
-		bst3.put(7, 7);
 		bst3.put(5, 5);
 		bst3.put(4, 4);
 		bst3.put(3, 3);
 		
-		assertEquals(bst.get(7), bst.findLCA(6, 10));
+		assertEquals("The lca of these nodes should be 7.",bst.get(7), bst.findLCA(6, 10));
 			
 	}
 	
@@ -50,11 +61,11 @@ public class BSTTest
 		BST<Integer, Integer> bst = new BST<Integer, Integer>();
 
 		//Test for empty bst
-		assertTrue(bst.isEmpty());
+		assertTrue("Binary tree should be empty.",bst.isEmpty());
 
 		//Test for bst with one node
 		bst.put(7, 7);
-		assertFalse(bst.isEmpty());
+		assertFalse("Binary tree should not be empty",bst.isEmpty());
 
 		//Test for bst with multiple nodes
 		bst.put(8, 8);
@@ -65,7 +76,7 @@ public class BSTTest
 		bst.put(4, 4);   
 		bst.put(5, 5);
 
-		assertFalse(bst.isEmpty());
+		assertFalse("Binary tree should not be empty",bst.isEmpty());
 	}
 
 	@Test
@@ -75,14 +86,14 @@ public class BSTTest
 
 		//Test for empty bst
 		int sampleKey = 1;
-		assertFalse(bst.contains(sampleKey));
+		assertFalse("Binary tree should not yet contain the sample key",bst.contains(sampleKey));
 
 		//Test for non-empty bst
 		bst.put(sampleKey, 1);
-		assertTrue(bst.contains(sampleKey));
+		assertTrue("Binary tree should contain the sample key",bst.contains(sampleKey));
 
 		int absentKey = 3;
-		assertFalse(bst.contains(absentKey));
+		assertFalse("Binary tree should not contain the absent key",bst.contains(absentKey));
 	}
 
 	@Test
@@ -104,7 +115,7 @@ public class BSTTest
 		               //           10
 		               //            \
 		                //            11
-		assertEquals(9, bst.get(9).intValue());
+		assertEquals("The binary tree should have the node with value 9",9, bst.get(9).intValue());
 
 		//Tests for bst with key in left subtree of root
 		bst2.put(7, 7);//            7
@@ -116,7 +127,7 @@ public class BSTTest
 		               //      4
 		               //     /
 		               //    3
-		assertEquals(5, bst2.get(5).intValue());
+		assertEquals("The binary tree should have the node with value 5", 5, bst2.get(5).intValue());
 
 	}
 
@@ -129,17 +140,17 @@ public class BSTTest
 		bst.put(7, 7);  //    7
 		bst.put(8, 8);  //     \
 		//      8
-		assertTrue(bst.contains(8));
+		assertTrue("The binary tree should contain the value 8.",bst.contains(8));
 
 		//Test for bst with node put in left subtree of root
-		              //            7
+		               //           7
 		bst.put(6, 6);//           / \
-		               //         6   8
-		assertTrue(bst.contains(6));
+		             //           6   8
+		assertTrue("The binary tree should contain the value 6.",bst.contains(6));
 
 		//Test for node with null value
 		bst.put(5, null);
-		assertFalse(bst.contains(5));
+		assertFalse("The binary tree should not contain the value 5.",bst.contains(5));
 
 	}
 
@@ -149,11 +160,11 @@ public class BSTTest
 		BST<Integer, Integer> bst = new BST<Integer, Integer>();
 
 		//Test for empty bst
-		assertEquals(0, bst.size());
+		assertEquals("The binary tree should have size 0",0, bst.size());
 
 		//Test for bst with one node
 		bst.put(7, 7);
-		assertEquals(1, bst.size());
+		assertEquals("The binary tree should have size 1.",1, bst.size());
 
 		//Test for bst with multiple nodes
 		bst.put(8, 8);
@@ -164,7 +175,7 @@ public class BSTTest
 		bst.put(4, 4);   
 		bst.put(5, 5);
 
-		assertEquals(8, bst.size()); 
+		assertEquals("The binary tree should have size 8.",8, bst.size()); 
 	}
 
 	@Test
@@ -173,17 +184,17 @@ public class BSTTest
 		BST<Integer, Integer> bst = new BST<Integer, Integer>();
 
 		//Test for empty bst
-		assertEquals(-1, bst.height());
+		assertEquals("The binary tree should have height -1.",-1, bst.height());
 
 		bst.put(7, 7); 
 		//Test for bst with one node
-		assertEquals(0, bst.height());
+		assertEquals("The binary tree should have height 0.",0, bst.height());
 
 		bst.put(8, 8);
 		bst.put(3, 3); 
 
 		//Test for bst with height 1
-		assertEquals(1, bst.height());
+		assertEquals("The binary tree should have height 1.",1, bst.height());
 
 		bst.put(1, 1);   
 		bst.put(2, 2);   
@@ -192,7 +203,7 @@ public class BSTTest
 		bst.put(5, 5);
 
 		//Test for bst with height > 1
-		assertEquals(4, bst.height());
+		assertEquals("The binary tree should have height 4.",4, bst.height());
 	}
 
 	@Test 
@@ -203,11 +214,11 @@ public class BSTTest
 		BST<Integer, Integer> bst3 = new BST<Integer, Integer>();
 
 		//Test for empty bst
-		assertNull(bst.median());
+		assertNull("The empty binary tree should have no median.",bst.median());
 
 		//Test for bst with one node
 		bst2.put(7, 7); 
-		assertEquals(7, bst2.median().intValue());
+		assertEquals("The binary tree should have median 7.",7, bst2.median().intValue());
 
 		//Test for bst with median in right subtree of root
 		                 //    7
@@ -219,7 +230,7 @@ public class BSTTest
 		                 //          10
 		                 //           \
 		                 //            11
-		assertEquals(9, bst2.median().intValue());
+		assertEquals("The binary tree should median 9.",9, bst2.median().intValue());
 
 		//Tests for bst with median in left subtree of root
 		bst3.put(7, 7);//            7
@@ -231,7 +242,7 @@ public class BSTTest
 		               //      4
 		               //     /
 		               //    3
-		assertEquals(5, bst3.median().intValue());
+		assertEquals("The binary tree should have median 5.",5, bst3.median().intValue());
 
 		//Test for bst with nodes in both the left and right subtrees of the root
 		bst.put(7, 7);   //        _7_
@@ -242,8 +253,8 @@ public class BSTTest
 		bst.put(6, 6);   //  \     /
 		bst.put(4, 4);   //   2   4
 		bst.put(5, 5);   //        \
-		//         5
-		assertEquals(4, bst.median().intValue());
+		                 //         5
+		assertEquals("The binary tree should have median 4.",4, bst.median().intValue());
 
 
 	}
@@ -269,7 +280,7 @@ public class BSTTest
 		bst.put(6, 6);   //  \     /
 		bst.put(4, 4);   //   2   4
 		bst.put(5, 5);	  //        \
-		//         5		
+		                  //         5		
 		assertEquals("(((()1(()2()))3((()4(()5()))6()))7(()8()))", bst.printKeysInOrder());
 
 	}
