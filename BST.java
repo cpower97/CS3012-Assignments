@@ -1,10 +1,16 @@
 import java.util.NoSuchElementException;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
-/* This implementation of the lowest common ancestor problem is based on code I had written 
- * for a module last year in which I built a binary search tree API with basic functions
+/* Conor Power
+ * ID: 16322195
+ * 
+ * Code is based on Sedgewick and Wayne's implementation of a binary search tree class
+ * 
+ * This implementation of the lowest common ancestor problem is an extension of code I had written 
+ * for a module last year, in which I built a binary search tree class with basic methods
  * implemented, such as get and put. For this assignment I then added a function to find the 
- * lowest common ancestor of two nodes.
+ * lowest common ancestor of two nodes in the tree. The unit testing for this class (BST.java) and its methods can be 
+ * found in the BSTTest.java file.
  */
 public class BST<Key extends Comparable<Key>, Value> {
     private Node root;             // root of BST
