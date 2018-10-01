@@ -36,7 +36,6 @@ public class BST<Key extends Comparable<Key>, Value> {
     
     private Value findLCA(Node node, Key k1, Key k2)
     {
-    	if(node == null) return null;
     	
     	if(node.key.compareTo(k1) > 0 && node.key.compareTo(k2) > 0)
     		return findLCA(node.left, k1, k2);
@@ -117,10 +116,7 @@ public class BST<Key extends Comparable<Key>, Value> {
     
     private Node median(Node x, int k)
     {
-    	if (x == null || k < 0 || k >= size())
-    	{
-    		return null;
-    	}
+   
     	int t = size(x.left);
     	if (t > k)
     	{
