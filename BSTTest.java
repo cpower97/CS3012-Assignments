@@ -21,15 +21,24 @@ public class BSTTest
 	
 	//Finds the lowest common ancestor of two nodes in a binary search tree
 	@Test
-	public void testLCA()
+	public void testLCAEmpty()
 	{
 		BST<Integer, Integer> bst = new BST<Integer, Integer>();
+		
 		//Tests findLCA for empty binary tree
 		assertNull(bst.findLCA(1, 2));
 		
+	}
+	
+	//Tests findLCA for various non-empty binary trees
+	@Test
+	public void testLCA()
+	{
+		BST<Integer, Integer> bst = new BST<Integer, Integer>();
 		bst.put(7, 7);
 		bst.put(8, 8);
 		bst.put(6, 6);
+		
 		
 		//Tests findLCA for non-empty binary trees
 		assertEquals("The lca of these nodes should be 7.",bst.get(7), bst.findLCA(6, 8));
@@ -51,8 +60,81 @@ public class BSTTest
 		bst3.put(4, 4);
 		bst3.put(3, 3);
 		
-		assertEquals("The lca of these nodes should be 7.",bst.get(7), bst.findLCA(6, 10));
-			
+		assertEquals("The lca of these nodes should be 7.",bst3.get(7), bst3.findLCA(6, 10));
+		
+		BST<Integer, Integer> bst4 = new BST<Integer, Integer>();
+		bst4.put(7, 7);   //        _7_
+		bst4.put(8, 8);   //      /     \
+		bst4.put(3, 3);   //    _3_      8
+		bst4.put(1, 1);   //  /     \
+		bst4.put(2, 2);   // 1       6
+		bst4.put(6, 6);   //  \     /
+		bst4.put(4, 4);   //   2   4
+		bst4.put(5, 5);   //        \
+		                 //         5
+		
+		assertEquals("The lca of these nodes should be 7.",bst4.get(7), bst4.findLCA(8,5));
+		assertEquals("The lca of these nodes should be 3.",bst4.get(3), bst4.findLCA(2,4));
+	}
+	
+	//Tests findLCA for parameters ordered differently
+	@Test
+	public void testLCAOrderSwap()
+	{
+		BST<Integer, Integer> bst = new BST<Integer, Integer>();
+		bst.put(7, 7);   //        _7_
+		bst.put(8, 8);   //      /     \
+		bst.put(3, 3);   //    _3_      8
+		bst.put(1, 1);   //  /     \
+		bst.put(2, 2);   // 1       6
+		bst.put(6, 6);   //  \     /
+		bst.put(4, 4);   //   2   4
+		bst.put(5, 5);   //        \
+		                 //         5
+		
+		assertEquals("The lca of these nodes should be 3.",bst.get(3), bst.findLCA(2,4));
+		assertEquals("The lca of these nodes should also be 3.",bst.get(3), bst.findLCA(4,2));
+	}
+	
+	//Tests findLCA for node(s) not in tree
+	@Test
+	public void testLCAAbsentNode()
+	{
+		BST<Integer, Integer> bst = new BST<Integer, Integer>();
+		bst.put(7, 7);   //        _7_
+		bst.put(8, 8);   //      /     \
+		bst.put(3, 3);   //    _3_      8
+		bst.put(1, 1);   //  /     \
+		bst.put(2, 2);   // 1       6
+		bst.put(6, 6);   //  \     /
+		bst.put(4, 4);   //   2   4
+		bst.put(5, 5);   //        \
+		                 //         5
+		
+		//Both of the passed nodes absent
+		assertNull("Nodes with value 1 and 12 both absent.",bst.findLCA(1, 12));
+		
+		//One of the passed nodes absent
+		assertNull("Nodes with value 14 absent.",bst.findLCA(7, 14));
+		
+	}
+	
+	//Test findLCA for negative integer parameters
+	@Test
+	public void testLCANegativeInteger()
+	{
+		BST<Integer, Integer> bst = new BST<Integer, Integer>();
+		bst.put(7, 7);   //        _7_
+		bst.put(8, 8);   //      /     \
+		bst.put(3, 3);   //    _3_      8
+		bst.put(1, 1);   //  /     \
+		bst.put(2, 2);   // 1       6
+		bst.put(6, 6);   //  \     /
+		bst.put(4, 4);   //   2   4
+		bst.put(5, 5);   //        \
+		                 //         5
+		
+		assertNull("Value absent from tree.", bst.findLCA(-2, -5));
 	}
 	
 	@Test
