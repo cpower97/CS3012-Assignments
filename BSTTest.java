@@ -26,7 +26,7 @@ public class BSTTest
 		BST<Integer, Integer> bst = new BST<Integer, Integer>();
 		
 		//Tests findLCA for empty binary tree
-		assertNull(bst.findLCA(1, 2));
+		assertNull("There should be no lca as the tree is empty",bst.findLCA(1, 2));
 		
 	}
 	
@@ -38,6 +38,7 @@ public class BSTTest
 		bst.put(7, 7);
 		bst.put(8, 8);
 		bst.put(6, 6);
+		bst.put(6,9);
 		
 		
 		//Tests findLCA for non-empty binary trees
@@ -75,6 +76,34 @@ public class BSTTest
 		
 		assertEquals("The lca of these nodes should be 7.",bst4.get(7), bst4.findLCA(8,5));
 		assertEquals("The lca of these nodes should be 3.",bst4.get(3), bst4.findLCA(2,4));
+		
+		BST<Integer, Integer> bst5 = new BST<Integer, Integer>();
+		bst5.put(7, 7);  //    7
+		bst5.put(8, 8);  //     \
+		bst5.put(9,9);   //      8
+		bst5.put(10, 10);//       \
+		bst5.put(11, 11);//        9
+				        //         \
+		               //           10
+		               //            \
+		                //            11
+		assertEquals("The lca of these nodes should be 10.",bst5.get(10), bst5.findLCA(11, 10));
+		assertEquals("The lca of these nodes should be 7.",bst5.get(7), bst5.findLCA(7, 8));
+		
+		BST<Integer, Integer> bst6 = new BST<Integer, Integer>();
+		bst6.put(7, 7);//            7
+		bst6.put(6, 6);//           /
+		bst6.put(5, 5);//          6
+		bst6.put(4, 4);//         /
+		bst6.put(3, 3);//        5
+		               //       /
+		               //      4
+		               //     /
+		               //    3
+		
+		assertEquals("The lca of these nodes should be 6.",bst6.get(6), bst6.findLCA(5,6));
+		assertEquals("The lca of these nodes should be 4.",bst6.get(4), bst6.findLCA(4,3));
+		
 	}
 	
 	//Tests findLCA for parameters ordered differently
@@ -367,5 +396,71 @@ public class BSTTest
 
 	}
 
+	@Test
+	public void testDelete()
+	{
+		BST<Integer, Integer> bst = new BST<Integer, Integer>();
+		bst.put(7, 7);
+		bst.put(8, 8);
+		bst.put(6, 6);
+		
+		bst.delete(8);
+		assertNull("The tree does not contain the value 8.",bst.get(8));
+		assertFalse("The tree does not contain the value 8.",bst.contains(8));
+		
+		BST<Integer, Integer> bst2 = new BST<Integer, Integer>();
+		bst2.put(7, 7);
+		bst2.put(6, 6);
+		bst2.put(5, 5);
+		bst2.put(4, 4);
+		bst2.put(3, 3);
+		
+		bst2.delete(7);
+		assertNull("The tree does not contain the value 7.",bst2.get(7));
+		assertFalse("The tree does not contain the value 7.",bst2.contains(7));
+		
+		BST<Integer, Integer> bst3 = new BST<Integer, Integer>();
+		bst3.put(7, 7);   //        _7_
+		bst3.put(8, 8);   //      /     \
+		bst3.put(3, 3);   //    _3_      8
+		bst3.put(1, 1);   //  /     \
+		bst3.put(2, 2);   // 1       6
+		bst3.put(6, 6);   //  \     /
+		bst3.put(4, 4);   //   2   4
+		bst3.put(5, 5);   //        \
+		                 //         5
+		
+		bst3.delete(7);
+		bst3.delete(3);
+		bst3.delete(5);
+		bst3.delete(1);
+		bst3.delete(10);
+		
+		assertFalse("The tree does not contain the value 7.",bst3.contains(7));
+		assertFalse("The tree does not contain the value 3.",bst3.contains(3));
+		assertFalse("The tree does not contain the value 5.",bst3.contains(5));
+		assertFalse("The tree does not contain the value 1.",bst3.contains(1));
+		assertFalse("The tree does not contain the value 10.",bst3.contains(10));
+		assertTrue("The tree contains the value 8.",bst3.contains(8));
+		
+		BST<Integer, Integer> bst4 = new BST<Integer, Integer>();
+		bst4.put(7, 7);  //    7
+		bst4.put(8, 8);  //     \
+		bst4.put(9,9);   //      8
+		bst4.put(10, 10);//       \
+		bst4.put(11, 11);//        9
+				        //         \
+		               //           10
+		               //            \
+		                //            11
+		bst4.delete(7);
+		bst4.delete(3);
+		bst4.delete(5);
+		
+		assertFalse("The tree does not contain the value 7.",bst4.contains(7));
+		assertFalse("The tree does not contain the value 3.",bst4.contains(3));
+		assertFalse("The tree does not contain the value 5.",bst4.contains(5));
+		
+	}
 }
 
