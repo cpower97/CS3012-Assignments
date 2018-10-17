@@ -46,4 +46,28 @@ public class DAG
 		else return false;
 	}
 	
+	 //Validates vertex v
+	public int validateVertex(int v)
+	{
+		if(v < 0 || v > V) return -1;
+		else return 1;
+	}
+	
+	public int indegree(int v)
+	{
+		if(validateVertex(v) > 0) return indegree[v];
+		else return -1;
+	}
+	
+	public int outdegree(int v)
+	{
+		if(validateVertex(v) > 0) return adj[v].size();
+		else return -1;
+	}
+	
+	public Iterable<Integer> adj(int v)
+	{
+		return adj[v];
+	}
+	
 }
