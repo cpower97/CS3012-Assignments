@@ -36,9 +36,15 @@ public class DAG
 	}
 	
 	//Returns number of vertices in digraph
-	public int V() {return V;}
+	public int V() 
+	{
+		return V;
+	}
+	
 	//Returns number of edges in digraph
-	public int E() {return E;}
+	public int E() {
+		return E;
+	}
 	
 	public boolean isEmpty()
 	{
@@ -49,7 +55,7 @@ public class DAG
 	 //Validates vertex v
 	public int validateVertex(int v)
 	{
-		if(v < 0 || v > V) return -1;
+		if(v < 0 || v >= V) return -1;
 		else return 1;
 	}
 	
@@ -67,7 +73,104 @@ public class DAG
 	
 	public Iterable<Integer> adj(int v)
 	{
-		return adj[v];
+		if(V == 0) return null;
+		else return adj[v];
 	}
+	
+	//Adds directed edge v->w to this graph
+	public void addEdge(int v, int w)
+	{
+		if((validateVertex(v) > 0) && (validateVertex(w) > 0))
+		{
+			adj[v].add(w);
+			indegree[w]++;
+			E++;
+		}
+		else System.out.println("Vertices must be between 0 and " + (V-1));
+	}
+	
+	//Tests for cycle in graph
+	public void findCycle(int v)
+	{
+		stack[v] = true;
+		visited[v] = true;
+		
+		for(int w : adj(v))
+		{
+			if(!visited[w]) findCycle(w);
+			else if(stack[w])
+			{
+				hasCycle = true;
+				return;
+			}
+		}
+		
+		stack[v] = false;
+	}
+	
+	public ArrayList<Integer> BFS(int v)
+	{
+		boolean[] marked = new boolean[V];
+		ArrayList<Integer> order = new ArrayList<Integer>();
+		LinkedList<Integer> queue = new LinkedList<Integer>();
+		marked[v] = true;
+		queue.add(v);
+		
+		while(queue.size() > 0)
+		{
+			v = queue.poll();
+			order.add(v);
+			
+			Iterator<Integer> i = adj[v].listIterator();
+			
+			while(i.hasNext())
+			{
+				int j = i.next();
+				if(!marked[j])
+				{
+					marked[j] = true;
+					queue.add(j);
+				}
+			}
+		}
+		
+		return order;
+	}
+	
+	public DAG reverse()
+	{
+		DAG reverseDAG = new DAG(V);
+		for(int v = 0; v < V; v++)
+			for(int w : adj(v))
+				reverseDAG.addEdge(w, v);
+		
+		return reverseDAG;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
